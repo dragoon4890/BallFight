@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://d085gr0nk27m2"]
+
+[ext_resource type="Script" uid="uid://ukg2uqym4d3y" path="res://scripts/network_manager.gd" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://b6hbjxlwx5df2" path="res://scenes/player.tscn" id="2_sugp2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wfyh"]
+albedo_color = Color(0.983599, 0.4298733, 0.36929527, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
+sky_top_color = Color(0.56400776, 0.34846675, 0.635126, 1)
+
+[sub_resource type="Sky" id="Sky_0wfyh"]
+sky_material = SubResource("ProceduralSkyMaterial_0wfyh")
+
+[sub_resource type="Environment" id="Environment_sugp2"]
+background_mode = 2
+sky = SubResource("Sky_0wfyh")
+ambient_light_source = 3
+ambient_light_color = Color(0.90148246, 0.590854, 0.74906075, 1)
+
+[node name="Main" type="Node3D" unique_id=1343542044 node_paths=PackedStringArray("spawn_points")]
+script = ExtResource("1_0wfyh")
+player_scene = ExtResource("2_sugp2")
+spawn_points = NodePath("SpawnPoints")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=555946234]
+use_collision = true
+size = Vector3(20, 1, 20)
+material = SubResource("StandardMaterial3D_0wfyh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1755315484]
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=324527024]
+offset_left = 237.0
+offset_top = 239.0
+offset_right = 412.0
+offset_bottom = 340.0
+text = "Host
+"
+
+[node name="Button2" type="Button" parent="CanvasLayer" unique_id=508167374]
+offset_left = 575.0
+offset_top = 253.0
+offset_right = 829.0
+offset_bottom = 345.0
+text = "Join
+"
+
+[node name="SpawnPoints" type="Node3D" parent="." unique_id=1797960257]
+
+[node name="Marker3D" type="Marker3D" parent="SpawnPoints" unique_id=5190628]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.940745, 0.19255233, -8.958366)
+
+[node name="Marker3D2" type="Marker3D" parent="SpawnPoints" unique_id=124727398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1319766, 0, 9.244366)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1266011804]
+transform = Transform3D(0.8660254, -0.35355338, 0.35355338, 0, 0.70710677, 0.70710677, -0.5, -0.6123724, 0.6123724, 0, 0, 0)
+light_color = Color(0.99697274, 0.99204415, 0.635309, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1060962473]
+environment = SubResource("Environment_sugp2")
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="host_game"]
+[connection signal="pressed" from="CanvasLayer/Button2" to="." method="join_game"]

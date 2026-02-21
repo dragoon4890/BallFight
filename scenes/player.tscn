@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://b6hbjxlwx5df2"]
+
+[ext_resource type="Script" uid="uid://cqes7l0xs50k6" path="res://scripts/player_controller.gd" id="1_3vyb7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2els"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3vyb7"]
+diffuse_mode = 3
+albedo_color = Color(0.9764706, 0.8745098, 0.61960787, 1)
+roughness = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qhqgy"]
+material = SubResource("StandardMaterial3D_3vyb7")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dqkch"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qlg0r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tuyoq"]
+
+[node name="Player" type="CharacterBody3D" unique_id=406892588]
+script = ExtResource("1_3vyb7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=641615115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_g2els")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=476195038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_qhqgy")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=174431115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1682980829]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1595885144]
+replication_config = SubResource("SceneReplicationConfig_dqkch")
+
+[node name="WeakPoint" type="Area3D" parent="." unique_id=1015633522]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WeakPoint" unique_id=753654002]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 1, 0)
+shape = SubResource("SphereShape3D_qlg0r")
+debug_color = Color(0.64092416, 0.49397838, 0.48976654, 0.41960785)
+
+[node name="AttackArea" type="Area3D" parent="." unique_id=1350569450]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea" unique_id=625580058]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.97514945, 1.0654824, 0)
+shape = SubResource("BoxShape3D_tuyoq")
