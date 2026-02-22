@@ -9,7 +9,8 @@ func _ready():
 		"move_backward": [KEY_S, KEY_DOWN],
 		"jump": [KEY_SPACE],
 		"attack": [MOUSE_BUTTON_LEFT],
-		"dodge": [KEY_SHIFT]
+		"dodge": [KEY_SHIFT],
+		"grapple": [MOUSE_BUTTON_RIGHT]
 	}
 
 	for action in inputs:

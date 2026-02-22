@@ -18,6 +18,8 @@ var damage: float
 var dodge_cooldown_time: float
 var knockback_resistance: float
 
+@export var acceleration: float = 10.0
+
 # --- Components ---
 @onready var camera_mount = $SpringArm3D
 @onready var attack_area = $AttackArea # Area3D for melee
@@ -95,12 +97,10 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
-	if direction and not is_dodging:
-		velocity.x = direction.x * move_speed
-		velocity.z = direction.z * move_speed
-	elif not is_dodging:
-		velocity.x = move_toward(velocity.x, 0, move_speed)
-		velocity.z = move_toward(velocity.z, 0, move_speed)
+	if not is_dodging:
+		var target_velocity = direction * move_speed
+		velocity.x = lerp(velocity.x, target_velocity.x, acceleration * delta)
+		velocity.z = lerp(velocity.z, target_velocity.z, acceleration * delta)
 
 	move_and_slide()
 

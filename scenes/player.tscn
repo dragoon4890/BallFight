@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b6hbjxlwx5df2"]
 
 [ext_resource type="Script" uid="uid://cqes7l0xs50k6" path="res://scripts/player_controller.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://ce6xat2xgenay" path="res://scripts/grappling_hook.gd" id="2_g2els"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2els"]
 
@@ -37,8 +38,13 @@ mesh = SubResource("CapsuleMesh_qhqgy")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=174431115]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_mask = 0
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1682980829]
+
+[node name="RayCast3D" type="RayCast3D" parent="SpringArm3D/Camera3D" unique_id=652853286]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+target_position = Vector3(0, -1, -50)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1595885144]
 replication_config = SubResource("SceneReplicationConfig_dqkch")
@@ -46,7 +52,7 @@ replication_config = SubResource("SceneReplicationConfig_dqkch")
 [node name="WeakPoint" type="Area3D" parent="." unique_id=1015633522]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WeakPoint" unique_id=753654002]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.5, 1, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 8.742278e-08, 0, -8.742278e-08, 0.5, 0.5, 1, 0)
 shape = SubResource("SphereShape3D_qlg0r")
 debug_color = Color(0.64092416, 0.49397838, 0.48976654, 0.41960785)
 
@@ -55,3 +61,7 @@ debug_color = Color(0.64092416, 0.49397838, 0.48976654, 0.41960785)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AttackArea" unique_id=625580058]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.97514945, 1.0654824, 0)
 shape = SubResource("BoxShape3D_tuyoq")
+
+[node name="GrapplingHook" type="Node" parent="." unique_id=500666451]
+script = ExtResource("2_g2els")
+damping = 0.0
